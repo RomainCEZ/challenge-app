@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
     addChallenge,
@@ -49,34 +49,29 @@ function NewChallenge() {
     }
 
     return (
-        <>
-            <Link to="/" className="btn btn-primary btn-outline border-primary">
-                Back
-            </Link>
-            <section className="p-3">
-                <form className="form-control gap-4" onSubmit={newChallenge}>
-                    <input
-                        className="input input-bordered border-primary"
-                        placeholder="Name"
-                        aria-label="name"
-                        onChange={changeName}
-                        value={form.name}
-                        required
-                    />
-                    <input
-                        className="input input-bordered border-primary"
-                        placeholder="Specialty"
-                        aria-label="specialty"
-                        onChange={changeSpecialty}
-                        value={form.specialty}
-                        required
-                    />
-                    <button className="btn btn-primary btn-outline border-primary">
-                        I'm the best !
-                    </button>
-                </form>
-            </section>
-        </>
+        <section className="p-3">
+            <form className="form-control gap-4" onSubmit={newChallenge}>
+                <input
+                    className="input input-bordered border-primary"
+                    placeholder="Name"
+                    aria-label="name"
+                    onChange={changeName}
+                    value={form.name}
+                    required
+                />
+                <input
+                    className="input input-bordered border-primary"
+                    placeholder="Specialty"
+                    aria-label="specialty"
+                    onChange={changeSpecialty}
+                    value={form.specialty}
+                    required
+                />
+                <button className="btn btn-ghost glass ring-1 border-primary shadow-md hover:ring-2 ring-primary hover:shadow-primary transition-all">
+                    I'm the best !
+                </button>
+            </form>
+        </section>
     );
 }
 
