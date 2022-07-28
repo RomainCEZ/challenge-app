@@ -10,7 +10,7 @@ function Header() {
                 className="flex flex-col items-center sm:flex-row gap-3"
             >
                 <img className="h-16 w-16" src={logo} alt="logo" />
-                <h1 className="hidden sm:flex text-2xl sm:text-4xl">
+                <h1 className="text-primary hidden sm:flex text-2xl sm:text-4xl">
                     I Challenge You !
                 </h1>
             </Link>
