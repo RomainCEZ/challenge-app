@@ -13,7 +13,7 @@ module.exports = {
         themes: [
             {
                 lightTheme: {
-                    primary: "#10b981",
+                    primary: "#3b82f6",
                     secondary: "#059669",
                     accent: "#10b981",
                     neutral: "#3D4451",
@@ -26,7 +26,7 @@ module.exports = {
             },
             {
                 darkTheme: {
-                    primary: "#10b981",
+                    primary: "#be123c",
                     secondary: "#059669",
                     accent: "#10b981",
                     neutral: "#3D4451",
