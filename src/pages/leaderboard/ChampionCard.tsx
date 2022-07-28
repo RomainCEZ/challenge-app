@@ -1,4 +1,4 @@
-import Challenge from "../../features/models/Challenge";
+import Challenge from "../../features/challenge/models/Challenge";
 
 function ChampionCard(props: Challenge) {
     return (
