@@ -1,63 +1,29 @@
-import { MouseEvent, useLayoutEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import NavButton from "./buttons/NavButton";
 
 function NavBar() {
-    const [activeTab, setActiveTab] = useState<string>("leaderboard-button");
-    const navigate = useNavigate();
-    const location = useLocation();
+    const buttonParams = [
+        {
+            route: "/",
+            children: "Leaderboard",
+        },
+        {
+            route: "/newchallenge",
+            children: "new",
+        },
+        {
+            route: "/findchallenge",
+            children: "find",
+        },
+    ];
 
-    interface ButtonIdToRouteName {
-        "leaderboard-button": string;
-        "newchallenge-button": string;
-        "findchallenge-button": string;
-    }
-
-    const buttonIdToRouteName = {
-        "leaderboard-button": "",
-        "newchallenge-button": "newchallenge",
-        "findchallenge-button": "findchallenge",
-    };
-
-    useLayoutEffect(() => {
-        const location = window.location.href.split("/").at(-1);
-        setActiveTab(location!);
-    }, [location]);
-
-    function changeTab(e: MouseEvent<HTMLButtonElement>) {
-        const buttonId: keyof ButtonIdToRouteName = e.currentTarget
-            .id as keyof ButtonIdToRouteName;
-        setActiveTab(buttonIdToRouteName[buttonId]);
-        navigate(buttonIdToRouteName[buttonId]);
-    }
+    const navButtons = buttonParams.map((button) => (
+        <NavButton key={button.route} route={button.route}>
+            {button.children}
+        </NavButton>
+    ));
     return (
-        <nav className="btn-group shadow-primary rounded-lg">
-            <button
-                id="leaderboard-button"
-                className={`btn btn-primary btn-outline border-primary${
-                    activeTab === "" ? " btn-active" : ""
-                }`}
-                onClick={changeTab}
-            >
-                Leaderboard
-            </button>
-            <button
-                id="newchallenge-button"
-                className={`btn btn-primary btn-outline border-primary${
-                    activeTab === "newchallenge" ? " btn-active" : ""
-                }`}
-                onClick={changeTab}
-            >
-                New
-            </button>
-            <button
-                id="findchallenge-button"
-                className={`btn btn-primary btn-outline border-primary${
-                    activeTab === "findchallenge" ? " btn-active" : ""
-                }`}
-                onClick={changeTab}
-            >
-                Find
-            </button>
+        <nav className="btn-group shadow-primary rounded-lg w-full sm:max-w-2xl px-3 sm:px-6">
+            {navButtons}
         </nav>
     );
 }
