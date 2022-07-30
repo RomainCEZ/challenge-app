@@ -1,75 +1,28 @@
-import { nanoid } from "nanoid";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-    addChallenge,
-    selectChallenge,
-} from "../../features/challenge/challengeSlice";
-
-interface NewChallengeForm {
-    name: string;
-    specialty: string;
-}
-
-const initialState: NewChallengeForm = {
-    name: "",
-    specialty: "",
-};
+import { useContext } from "react";
+import GlassButton from "../../components/buttons/GlassButton";
+import BorderedPrimaryInput from "../../components/inputs/BorderedPrimaryInput";
+import { NewChallengeContext } from "./context/NewChallengeContext";
 
 function NewChallenge() {
-    const [form, setForm] = useState<NewChallengeForm>(initialState);
-    const challenges = useAppSelector(selectChallenge);
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-
-    function changeName(e: ChangeEvent<HTMLInputElement>): void {
-        setForm({ ...form, name: e.target.value });
-    }
-
-    function changeSpecialty(e: ChangeEvent<HTMLInputElement>): void {
-        setForm({ ...form, specialty: e.target.value });
-    }
-
-    function newChallenge(e: FormEvent<HTMLFormElement>): void {
-        e.preventDefault();
-        const specialtyAlreadyExists = challenges.find(
-            (challenge) => challenge.specialty === form.specialty
-        );
-        if (!specialtyAlreadyExists) {
-            const payload = {
-                id: nanoid(),
-                champion: form.name,
-                specialty: form.specialty,
-                winstreak: 0,
-            };
-            dispatch(addChallenge(payload));
-            navigate("/");
-        }
-    }
+    const { form, newChallenge, changeInput } = useContext(NewChallengeContext);
 
     return (
-        <section className="p-3">
-            <form className="form-control gap-4" onSubmit={newChallenge}>
-                <input
-                    className="input input-bordered border-primary"
-                    placeholder="Name"
-                    aria-label="name"
-                    onChange={changeName}
+        <section className="flex flex-col items-center gap-6 px-3 sm:px-6 w-full max-w-lg">
+            <h2 className="label-text font-bold text-2xl text-primary">
+                Claim your superiority !
+            </h2>
+            <form className="form-control gap-4 w-full" onSubmit={newChallenge}>
+                <BorderedPrimaryInput
                     value={form.name}
-                    required
+                    name="Name"
+                    handleChange={changeInput}
                 />
-                <input
-                    className="input input-bordered border-primary"
-                    placeholder="Specialty"
-                    aria-label="specialty"
-                    onChange={changeSpecialty}
+                <BorderedPrimaryInput
                     value={form.specialty}
-                    required
+                    name="Specialty"
+                    handleChange={changeInput}
                 />
-                <button className="btn btn-ghost glass ring-1 border-primary shadow-md hover:ring-2 ring-primary hover:shadow-primary transition-all">
-                    I'm the best !
-                </button>
+                <GlassButton>I'm the best !</GlassButton>
             </form>
         </section>
     );
