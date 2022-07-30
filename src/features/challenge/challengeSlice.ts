@@ -26,25 +26,47 @@ export const challengeSlice = createSlice({
       state.challenges = state.challenges.filter(challenge => challenge.id !== action.payload);
       challengeProvider.saveChallenges(state.challenges)
     },
+    challengeChampion: (state, action: PayloadAction<{ id: string, challenger: string }>) => {
+      const challenge = state.challenges.find(challenge => challenge.id === action.payload.id)
+      if (challenge) {
+        state.challenges = [
+          { ...challenge, activeChallenge: true, challenger: action.payload.challenger },
+          ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
+        ]
+        challengeProvider.saveChallenges(state.challenges)
+      }
+    },
+    declareWinner: (state, action: PayloadAction<{ id: string, winner: "champion" | "challenger" }>) => {
+      const challenge = state.challenges.find(challenge => challenge.id === action.payload.id)
+      if (challenge) {
+        if (action.payload.winner === 'champion') state.challenges = [
+          {
+            ...challenge,
+            winstreak: challenge.winstreak + 1,
+            challenger: "",
+            activeChallenge: false
+          },
+          ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
+        ]
+        else if (action.payload.winner === 'challenger') state.challenges =
+          [
+            {
+              ...challenge,
+              champion: challenge.challenger!,
+              winstreak: 1,
+              challenger: "",
+              activeChallenge: false
+            },
+            ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
+          ]
+        challengeProvider.saveChallenges(state.challenges)
+      }
+    }
   },
 });
 
-export const { addChallenge, removeChallenge } = challengeSlice.actions;
+export const { addChallenge, removeChallenge, challengeChampion, declareWinner } = challengeSlice.actions;
 
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectChallenge = (state: RootState) => state.challenge.challenges;
-
-// We can also write thunks by hand, which may contain both sync and async logic.
-// Here's an example of conditionally dispatching actions based on current state.
-// export const incrementIfOdd =
-//   (amount: number): AppThunk =>
-//     (dispatch, getState) => {
-//       const currentValue = selectCount(getState());
-//       if (currentValue % 2 === 1) {
-//         dispatch(incrementByAmount(amount));
-//       }
-//     };
 
 export default challengeSlice.reducer;
