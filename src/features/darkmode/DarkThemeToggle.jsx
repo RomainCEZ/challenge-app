@@ -8,7 +8,7 @@ function DarkThemeToggle() {
 
     return (
         <div className="absolute right-0 flex items-center">
-            <div className="m-5" data-toggle-theme="darkTheme">
+            <div className="m-5" data-toggle-theme="lightTheme,darkTheme">
                 <label
                     className="flex label cursor-pointer"
                     aria-label="toggle darkmode"
