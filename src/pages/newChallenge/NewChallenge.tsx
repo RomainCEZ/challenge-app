@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import GlassButton from "../../components/buttons/GlassButton";
-import BorderedPrimaryInput from "../../components/inputs/BorderedPrimaryInput";
+import InputBorderedPrimary from "../../components/inputs/InputBorderedPrimary";
 import { NewChallengeContext } from "./context/NewChallengeContext";
 
 function NewChallenge() {
@@ -11,18 +11,18 @@ function NewChallenge() {
             <h2 className="label-text font-bold text-2xl text-primary">
                 Claim your superiority !
             </h2>
-            <form className="form-control gap-4 w-full" onSubmit={newChallenge}>
-                <BorderedPrimaryInput
+            <form className="form-control w-full" onSubmit={newChallenge}>
+                <InputBorderedPrimary
                     value={form.name}
                     name="Name"
                     handleChange={changeInput}
                 />
-                <BorderedPrimaryInput
+                <InputBorderedPrimary
                     value={form.specialty}
                     name="Specialty"
                     handleChange={changeInput}
                 />
-                <GlassButton>I'm the best !</GlassButton>
+                <GlassButton className="mt-3">I'm the best !</GlassButton>
             </form>
         </section>
     );
