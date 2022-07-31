@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 
 function DarkThemeToggle() {
+    const [darkModeActive, setDarkModeActive] = useState(false);
     useEffect(() => {
         themeChange(false);
+        setDarkModeActive(localStorage.getItem("theme") === "darkTheme");
     }, []);
 
     return (
@@ -13,7 +15,11 @@ function DarkThemeToggle() {
                     className="flex label cursor-pointer"
                     aria-label="toggle darkmode"
                 >
-                    <input type="checkbox" className="toggle toggle-primary" />
+                    <input
+                        type="checkbox"
+                        className="toggle toggle-primary"
+                        defaultChecked={darkModeActive}
+                    />
                 </label>
             </div>
         </div>
