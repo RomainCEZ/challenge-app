@@ -1,29 +1,38 @@
 import { ChangeEvent, useMemo, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { selectChallenge } from "../../features/challenge/challengeSlice";
-import Challenge from "../../features/challenge/models/Challenge";
 import ChallengeCard from "../../components/challengeCard/ChallengeCard";
 import SelectOption from "./SelectOption";
 
 function FindChallenge() {
-    const [challengeCard, setChallengeCard] = useState<Challenge | null>(null);
+    const [challengeCard, setChallengeCard] = useState<string | null>(null);
     const challenges = useAppSelector(selectChallenge);
-    const specialtiesOptions = useMemo(
-        () =>
-            challenges
-                .map((challenge) => challenge.specialty)
-                .sort()
-                .map((specialty) => (
-                    <SelectOption key={specialty}>{specialty}</SelectOption>
-                )),
-        [challenges]
-    );
+    const specialtiesOptions = challenges
+        .map((challenge) => challenge.specialty)
+        .sort()
+        .map((specialty) => (
+            <SelectOption key={specialty}>{specialty}</SelectOption>
+        ));
+
+    const cardComponent = useMemo(() => {
+        const card = challenges.find(
+            (challenge) => challenge.specialty === challengeCard!
+        );
+        if (card)
+            return (
+                <ChallengeCard
+                    id={card.id}
+                    champion={card.champion}
+                    specialty={card.specialty}
+                    winstreak={card.winstreak}
+                    activeChallenge={card.activeChallenge}
+                    challenger={card.challenger}
+                />
+            );
+    }, [challenges, challengeCard]);
 
     function chooseChallengeCard(e: ChangeEvent<HTMLSelectElement>) {
-        const card = challenges.find(
-            (challenge) => challenge.specialty === e.currentTarget.value
-        );
-        setChallengeCard(card!);
+        setChallengeCard(e.currentTarget.value!);
     }
 
     return (
@@ -41,16 +50,7 @@ function FindChallenge() {
                     {specialtiesOptions}
                 </select>
             </label>
-            {challengeCard && (
-                <ChallengeCard
-                    id={challengeCard.id}
-                    champion={challengeCard.champion}
-                    specialty={challengeCard.specialty}
-                    winstreak={challengeCard.winstreak}
-                    activeChallenge={challengeCard.activeChallenge}
-                    challenger={challengeCard.challenger}
-                />
-            )}
+            {challengeCard && cardComponent}
         </section>
     );
 }
