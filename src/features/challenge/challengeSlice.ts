@@ -61,11 +61,23 @@ export const challengeSlice = createSlice({
           ]
         challengeProvider.saveChallenges(state.challenges)
       }
+    },
+    editChallenger: (state, action: PayloadAction<Challenge>) => {
+      const challenge = state.challenges.find(challenge => challenge.id === action.payload.id)
+      if (challenge) {
+        if (challenge) {
+          state.challenges = [
+            action.payload,
+            ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
+          ]
+          challengeProvider.saveChallenges(state.challenges)
+        }
+      }
     }
-  },
+  }
 });
 
-export const { addChallenge, removeChallenge, challengeChampion, declareWinner } = challengeSlice.actions;
+export const { addChallenge, removeChallenge, challengeChampion, declareWinner, editChallenger } = challengeSlice.actions;
 
 export const selectChallenge = (state: RootState) => state.challenge.challenges;
 

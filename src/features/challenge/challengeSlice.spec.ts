@@ -3,7 +3,7 @@ import challengeReducer, {
   addChallenge,
   removeChallenge,
   challengeChampion,
-  declareWinner
+  declareWinner, editChallenger
 } from './challengeSlice';
 
 describe('challenge reducer', () => {
@@ -98,5 +98,20 @@ describe('challenge reducer', () => {
     const actual = challengeReducer(activeChallengeInitialState, declareWinner({ id: "1", winner: "challenger" }));
     expect(actual.challenges[0].champion).toEqual("Vador")
   })
+
+  //editChallenge
+  it("should edit challenger", () => {
+    const payload = {
+      id: "1",
+      champion: "Vador",
+      specialty: "Light Saber",
+      winstreak: 2,
+      activeChallenge: true,
+      challenger: "Romain"
+    }
+    const actual = challengeReducer(oneChallengeInitialState, editChallenger(payload));
+    expect(actual.challenges[0]).toEqual(payload)
+  })
+
 
 });
