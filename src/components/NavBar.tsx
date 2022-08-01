@@ -22,7 +22,7 @@ function NavBar() {
         </NavButton>
     ));
     return (
-        <nav className="btn-group shadow-primary rounded-lg w-full sm:max-w-2xl px-3 sm:px-6">
+        <nav className="btn-group rounded-lg shadow-lg w-full sm:max-w-2xl mx-3 sm:mx-6">
             {navButtons}
         </nav>
     );
