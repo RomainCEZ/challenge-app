@@ -1,6 +1,6 @@
 import { ChangeEvent, useMemo, useState } from "react";
 import { useAppSelector } from "../../../../app/hooks";
-import { selectChallenge } from "../../challengeSlice";
+import { selectChallenge } from "../../reducer/challengeSlice";
 import ChallengeCard from "../../../../components/challengeCard/ChallengeCard";
 import SelectOption from "./SelectOption";
 
@@ -31,7 +31,7 @@ function FindChallenge() {
             );
     }, [challenges, challengeCard]);
 
-    function chooseChallengeCard(e: ChangeEvent<HTMLSelectElement>) {
+    function chooseChallengeCard(e: ChangeEvent<HTMLSelectElement>): void {
         setChallengeCard(e.currentTarget.value!);
     }
 

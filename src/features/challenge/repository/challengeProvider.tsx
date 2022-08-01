@@ -1,4 +1,4 @@
-import Challenge from "./models/Challenge";
+import Challenge from "../models/Challenge";
 
 class ChallengeProvider {
     saveChallenges(challenges: Challenge[]): void {

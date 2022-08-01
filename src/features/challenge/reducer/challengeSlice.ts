@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import Challenge from './models/Challenge';
-import ChallengeProvider from './challengeProvider';
+import { RootState } from '../../../app/store';
+import Challenge from '../models/Challenge';
+import ChallengeProvider from '../repository/challengeProvider';
 
 const challengeProvider = new ChallengeProvider()
 

@@ -3,7 +3,7 @@ import GlassButton from "../buttons/GlassButton";
 import {
     challengeChampion,
     declareWinner,
-} from "../../features/challenge/challengeSlice";
+} from "../../features/challenge/reducer/challengeSlice";
 import Challenge from "../../features/challenge/models/Challenge";
 import ActiveChallenge from "./ActiveChallenge";
 import { ChangeEvent, memo, MouseEvent, useState } from "react";

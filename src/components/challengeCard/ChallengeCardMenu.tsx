@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { useAppDispatch } from "../../app/hooks";
-import { removeChallenge } from "../../features/challenge/challengeSlice";
+import { removeChallenge } from "../../features/challenge/reducer/challengeSlice";
 import ConfirmModal from "../modals/ConfirmModal";
 
 interface MenuProps {
@@ -13,7 +13,7 @@ interface MenuProps {
 function ChallengeCardMenu({ id, challenge, toggleEdit }: MenuProps) {
     const dispatch = useAppDispatch();
 
-    function deleteChallenge() {
+    function deleteChallenge(): void {
         dispatch(removeChallenge(id));
     }
 

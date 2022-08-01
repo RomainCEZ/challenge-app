@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
 import useChallengeValidation from "../../../../../components/validation/useChallengeValidation";
-import { addChallenge, selectChallenge } from "../../../challengeSlice";
+import { addChallenge, selectChallenge } from "../../../reducer/challengeSlice";
 import Challenge from "../../../models/Challenge";
 import INewChallengeContext from "../interface/INewChallengeContext";
 import NewChallengeForm from "../interface/NewChallengeForm";
@@ -49,7 +49,6 @@ export const NewChallengeProvider = ({ children }: { children: ReactNode }) => {
         const specialtyList = challenges.map((challenge) =>
             challenge.specialty.toLowerCase()
         );
-        console.log(specialtyList);
         if (!testInput(form, specialtyList)) {
             return;
         }

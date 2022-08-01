@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
     editChallenger,
     selectChallenge,
-} from "../../features/challenge/challengeSlice";
+} from "../../features/challenge/reducer/challengeSlice";
 import Challenge from "../../features/challenge/models/Challenge";
 import GlassButton from "../buttons/GlassButton";
 import InputBorderedPrimary from "../inputs/InputBorderedPrimary";
@@ -31,7 +31,7 @@ function EditCard({ id, toggleEdit }: EditCardProps) {
     });
     const { errors, testInput, resetInput } = useChallengeValidation();
 
-    function changeTextInput(e: ChangeEvent<HTMLInputElement>) {
+    function changeTextInput(e: ChangeEvent<HTMLInputElement>): void {
         resetInput(e.target.name.toLowerCase());
         setChallenge((challenge) => ({
             ...challenge,
@@ -39,14 +39,14 @@ function EditCard({ id, toggleEdit }: EditCardProps) {
         }));
     }
 
-    function changeWinstreak(e: ChangeEvent<HTMLInputElement>) {
+    function changeWinstreak(e: ChangeEvent<HTMLInputElement>): void {
         setChallenge((challenge) => ({
             ...challenge,
             winstreak: Math.floor(+e.target.value),
         }));
     }
 
-    function changeActiveChallenge() {
+    function changeActiveChallenge(): void {
         setChallenge((challenge) => ({
             ...challenge,
             activeChallenge: !challenge.activeChallenge,

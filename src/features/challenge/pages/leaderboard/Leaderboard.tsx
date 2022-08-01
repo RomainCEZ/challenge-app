@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../../../app/hooks";
-import { selectChallenge } from "../../challengeSlice";
+import { selectChallenge } from "../../reducer/challengeSlice";
 import Challenge from "../../models/Challenge";
 import ChallengeCard from "../../../../components/challengeCard/ChallengeCard";
 
