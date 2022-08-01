@@ -10,7 +10,7 @@ function NavButton({ children, route, className }: ButtonProps) {
     const navigate = useNavigate();
     const location = useLocation();
 
-    function changeRoute() {
+    function changeRoute(): void {
         navigate(route);
     }
 
@@ -18,7 +18,7 @@ function NavButton({ children, route, className }: ButtonProps) {
 
     return (
         <button
-            className={`flex-1 btn btn-primary btn-outline border-primary${
+            className={`flex-1 btn btn-primary btn-outline border-primary rounded-none border-0 sm:border sm:rounded-lg${
                 routeIsActive ? " btn-active" : ""
             } ${className}`}
             onClick={changeRoute}
