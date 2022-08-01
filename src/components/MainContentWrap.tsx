@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import FindChallenge from "../pages/findChallenge/FindChallenge";
-import Leaderboard from "../pages/leaderboard/Leaderboard";
-import { NewChallengeProvider } from "../pages/newChallenge/context/NewChallengeContext";
-import NewChallenge from "../pages/newChallenge/NewChallenge";
+import FindChallenge from "../features/challenge/pages/findChallenge/FindChallenge";
+import Leaderboard from "../features/challenge/pages/leaderboard/Leaderboard";
+import { NewChallengeProvider } from "../features/challenge/pages/newChallenge/context/NewChallengeContext";
+import NewChallenge from "../features/challenge/pages/newChallenge/NewChallenge";
 import NavBar from "./NavBar";
 
 function MainContentWrap() {
