@@ -23,13 +23,15 @@ function Leaderboard() {
 
     return (
         <section className="flex flex-col items-center justify-center w-full gap-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl p-3 sm:px-6 gap-3 w-full">
-                {challengeCards.length > 0 ? (
-                    challengeCards
-                ) : (
-                    <p>No champion yet !</p>
-                )}
-            </div>
+            {challengeCards.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl p-3 sm:px-6 gap-3 w-full">
+                    {challengeCards}
+                </div>
+            ) : (
+                <p className="font-bold text-2xl text-primary">
+                    No champion yet !
+                </p>
+            )}
         </section>
     );
 }
