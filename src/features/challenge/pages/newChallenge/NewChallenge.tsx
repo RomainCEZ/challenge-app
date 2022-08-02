@@ -9,7 +9,7 @@ function NewChallenge() {
 
     return (
         <section className="flex flex-col items-center gap-6 px-3 sm:px-6 w-full max-w-lg">
-            <h2 className="label-text font-bold text-2xl text-primary">
+            <h2 className="font-bold text-2xl text-primary">
                 Claim your superiority !
             </h2>
             <form className="form-control w-full" onSubmit={newChallenge}>
