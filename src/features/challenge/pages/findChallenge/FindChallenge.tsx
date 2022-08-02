@@ -38,7 +38,7 @@ function FindChallenge() {
     return (
         <section className="flex flex-col gap-8 px-3 sm:px-6 w-full max-w-md">
             <label className="flex flex-col items-center w-full gap-6">
-                <h2 className="label-text font-bold text-2xl text-primary">
+                <h2 className="font-bold text-2xl text-primary">
                     Find your challenge !
                 </h2>
                 <select
