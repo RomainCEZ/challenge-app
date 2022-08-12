@@ -35,7 +35,7 @@ function EditCard({ id, toggleEdit }: EditCardProps) {
         resetInput(e.target.name.toLowerCase());
         setChallenge((challenge) => ({
             ...challenge,
-            champion: e.target.value,
+            [e.target.name]: e.target.value,
         }));
     }
 
