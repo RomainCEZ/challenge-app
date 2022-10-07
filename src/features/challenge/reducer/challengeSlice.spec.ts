@@ -3,7 +3,7 @@ import challengeReducer, {
   addChallenge,
   removeChallenge,
   challengeChampion,
-  declareWinner, editChallenger
+  declareWinner, editChallenger, setChallenges
 } from './challengeSlice';
 
 describe('challenge reducer', () => {
@@ -34,6 +34,12 @@ describe('challenge reducer', () => {
   it('should handle initial state', () => {
     expect(challengeReducer(undefined, { type: 'unknown' })).toEqual({ challenges: [] });
   });
+
+  //setChallenges
+  it('should set the state', () => {
+    const actual = challengeReducer(emptyInitialState, setChallenges(oneChallengeInitialState.challenges))
+    expect(actual).toEqual(oneChallengeInitialState)
+  })
 
   //addChallenge
   it('should add the challenge', () => {
