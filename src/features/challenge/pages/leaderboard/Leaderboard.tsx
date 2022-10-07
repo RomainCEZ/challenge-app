@@ -1,12 +1,22 @@
-import { useAppSelector } from "../../../../app/hooks";
-import { selectChallenge } from "../../reducer/challengeSlice";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { selectChallenge, setChallenges } from "../../reducer/challengeSlice";
 import Challenge from "../../models/Challenge";
 import ChallengeCard from "../../../../components/challengeCard/ChallengeCard";
+import challengeApi from "../../repository/challengeApi";
+import { useEffect } from "react";
 
 function Leaderboard() {
     const challenges: Challenge[] = [...useAppSelector(selectChallenge)].sort(
         (a: Challenge, b: Challenge) => b.winstreak! - a.winstreak!
     );
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        challengeApi.getChallenges().then((challenges) => {
+            dispatch(setChallenges(challenges));
+        });
+    }, [dispatch]);
+
     const challengeCards: JSX.Element[] = challenges.map(
         (challenge: Challenge) => (
             <ChallengeCard

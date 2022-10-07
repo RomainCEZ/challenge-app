@@ -11,6 +11,7 @@ import InputBorderedPrimary from "../inputs/InputBorderedPrimary";
 import ChallengeCardMenu from "./ChallengeCardMenu";
 import EditCard from "./EditCard";
 import useChallengeValidation from "../validation/useChallengeValidation";
+import challengeApi from "../../features/challenge/repository/challengeApi";
 
 const MemoChallengeCard = memo(ChallengeCard);
 
@@ -29,6 +30,13 @@ function ChallengeCard(props: Challenge) {
                 challenger,
             })
         );
+        challengeApi.editChallenge(props.id, {
+            champion: props.champion,
+            specialty: props.specialty,
+            winstreak: props.winstreak,
+            challenger: challenger,
+            activeChallenge: true,
+        });
         setChallenger("");
     }
 
@@ -44,6 +52,17 @@ function ChallengeCard(props: Challenge) {
                 winner: e.currentTarget.id as "champion" | "challenger",
             })
         );
+        challengeApi.editChallenge(props.id, {
+            champion:
+                e.currentTarget.id === "champion"
+                    ? props.champion
+                    : props.challenger,
+            specialty: props.specialty,
+            winstreak:
+                e.currentTarget.id === "champion" ? props.winstreak + 1 : 1,
+            challenger: "",
+            activeChallenge: false,
+        });
     }
 
     function toggleEdit(): void {

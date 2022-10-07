@@ -14,6 +14,7 @@ import Challenge from "../../features/challenge/models/Challenge";
 import GlassButton from "../buttons/GlassButton";
 import InputBorderedPrimary from "../inputs/InputBorderedPrimary";
 import useChallengeValidation from "../validation/useChallengeValidation";
+import challengeApi from "../../features/challenge/repository/challengeApi";
 
 interface EditCardProps {
     id: string;
@@ -60,14 +61,21 @@ function EditCard({ id, toggleEdit }: EditCardProps) {
     function onSubmit(e: FormEvent<HTMLFormElement>): void {
         e.preventDefault();
         if (!testInput(challenge)) return;
-        if (challenge.activeChallenge) dispatch(editChallenger(challenge));
-        else
+        if (challenge.activeChallenge) {
+            dispatch(editChallenger(challenge));
+            challengeApi.editChallenge(challenge.id, challenge);
+        } else {
             dispatch(
                 editChallenger({
                     ...challenge,
                     challenger: "",
                 })
             );
+            challengeApi.editChallenge(challenge.id, {
+                ...challenge,
+                challenger: "",
+            });
+        }
         toggleEdit();
     }
 

@@ -2,6 +2,7 @@ import { MouseEventHandler } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { useAppDispatch } from "../../app/hooks";
 import { removeChallenge } from "../../features/challenge/reducer/challengeSlice";
+import challengeApi from "../../features/challenge/repository/challengeApi";
 import ConfirmModal from "../modals/ConfirmModal";
 
 interface MenuProps {
@@ -15,6 +16,7 @@ function ChallengeCardMenu({ id, challenge, toggleEdit }: MenuProps) {
 
     function deleteChallenge(): void {
         dispatch(removeChallenge(id));
+        challengeApi.deleteChallenge(id);
     }
 
     return (
