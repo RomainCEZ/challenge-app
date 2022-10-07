@@ -4,8 +4,14 @@ import InputBorderedPrimary from "../../../../components/inputs/InputBorderedPri
 import { NewChallengeContext } from "./context/NewChallengeContext";
 
 function NewChallenge() {
-    const { form, errors, invalidInputLength, newChallenge, changeInput } =
-        useContext(NewChallengeContext);
+    const {
+        form,
+        errors,
+        invalidInputLength,
+        newChallenge,
+        changeInput,
+        pending,
+    } = useContext(NewChallengeContext);
 
     return (
         <section className="flex flex-col items-center gap-6 px-3 sm:px-6 w-full max-w-lg">
@@ -19,6 +25,7 @@ function NewChallenge() {
                     placeholder="Name *"
                     handleChange={changeInput}
                     error={errors.champion}
+                    disabled={pending}
                 />
                 <InputBorderedPrimary
                     value={form.specialty}
@@ -26,8 +33,12 @@ function NewChallenge() {
                     placeholder="Specialty *"
                     handleChange={changeInput}
                     error={errors.specialty}
+                    disabled={pending}
                 />
-                <GlassButton className="mt-3" disabled={invalidInputLength}>
+                <GlassButton
+                    className={`mt-3 ${pending ? "loading" : ""}`}
+                    disabled={invalidInputLength || pending}
+                >
                     I'm the best !
                 </GlassButton>
             </form>

@@ -8,6 +8,7 @@ interface InputProps {
     placeholder?: string;
     className?: string;
     error?: string;
+    disabled?: boolean;
 }
 
 function InputBorderedPrimary(props: InputProps) {
@@ -25,6 +26,7 @@ function InputBorderedPrimary(props: InputProps) {
                 minLength={3}
                 maxLength={20}
                 required
+                disabled={props.disabled}
             />
             <p className="px-2 font-bold text-error text-center h-6">
                 {props.error}

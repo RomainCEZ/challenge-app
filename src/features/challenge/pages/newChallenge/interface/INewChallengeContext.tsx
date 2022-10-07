@@ -8,4 +8,5 @@ export default interface INewChallengeContext {
     invalidInputLength: boolean;
     newChallenge: FormEventHandler<HTMLFormElement>;
     changeInput: ChangeEventHandler<HTMLInputElement>;
+    pending: boolean;
 }

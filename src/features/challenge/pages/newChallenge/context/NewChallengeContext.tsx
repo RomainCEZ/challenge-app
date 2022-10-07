@@ -12,6 +12,7 @@ import { addChallenge, selectChallenge } from "../../../reducer/challengeSlice";
 import Challenge from "../../../models/Challenge";
 import INewChallengeContext from "../interface/INewChallengeContext";
 import NewChallengeForm from "../interface/NewChallengeForm";
+import challengeApi from "../../../repository/challengeApi";
 
 const initialState: NewChallengeForm = {
     champion: "",
@@ -24,12 +25,14 @@ export const NewChallengeContext = createContext<INewChallengeContext>({
     invalidInputLength: false,
     newChallenge: () => {},
     changeInput: () => {},
+    pending: false,
 });
 
 export const NewChallengeProvider = ({ children }: { children: ReactNode }) => {
     const [form, setForm] = useState<NewChallengeForm>(initialState);
     const { errors, testInput, resetInput } = useChallengeValidation();
     const challenges = useAppSelector(selectChallenge);
+    const [pending, setPending] = useState(false);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -44,8 +47,9 @@ export const NewChallengeProvider = ({ children }: { children: ReactNode }) => {
     const invalidInputLength =
         form.champion.length < 3 || form.specialty.length < 3;
 
-    function newChallenge(e: FormEvent<HTMLFormElement>): void {
+    async function newChallenge(e: FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
+        setPending(true);
         const specialtyList = challenges.map((challenge) =>
             challenge.specialty.toLowerCase()
         );
@@ -54,6 +58,7 @@ export const NewChallengeProvider = ({ children }: { children: ReactNode }) => {
         }
         const payload = new Challenge(form);
         dispatch(addChallenge(payload));
+        await challengeApi.addChallenge(payload);
         navigate("/");
     }
 
@@ -65,6 +70,7 @@ export const NewChallengeProvider = ({ children }: { children: ReactNode }) => {
                 invalidInputLength,
                 newChallenge,
                 changeInput,
+                pending,
             }}
         >
             {children}
