@@ -1,16 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
 import Challenge from '../models/Challenge';
-import ChallengeProvider from '../repository/challengeProvider';
-
-const challengeProvider = new ChallengeProvider()
 
 export interface ChallengeState {
   challenges: Challenge[];
 }
 
 const initialState: ChallengeState = {
-  challenges: challengeProvider.getChallenges()
+  challenges: []
 };
 
 export const challengeSlice = createSlice({
@@ -19,12 +16,12 @@ export const challengeSlice = createSlice({
   reducers: {
     addChallenge: (state, action: PayloadAction<Challenge>) => {
       state.challenges = [...state.challenges, action.payload];
-      challengeProvider.saveChallenges(state.challenges)
-
+    },
+    setChallenges: (state, action: PayloadAction<Challenge[]>) => {
+      state.challenges = [...action.payload]
     },
     removeChallenge: (state, action: PayloadAction<string>) => {
       state.challenges = state.challenges.filter(challenge => challenge.id !== action.payload);
-      challengeProvider.saveChallenges(state.challenges)
     },
     challengeChampion: (state, action: PayloadAction<{ id: string, challenger: string }>) => {
       const challenge = state.challenges.find(challenge => challenge.id === action.payload.id)
@@ -33,7 +30,6 @@ export const challengeSlice = createSlice({
           { ...challenge, activeChallenge: true, challenger: action.payload.challenger },
           ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
         ]
-        challengeProvider.saveChallenges(state.challenges)
       }
     },
     declareWinner: (state, action: PayloadAction<{ id: string, winner: "champion" | "challenger" }>) => {
@@ -59,25 +55,21 @@ export const challengeSlice = createSlice({
             },
             ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
           ]
-        challengeProvider.saveChallenges(state.challenges)
       }
     },
     editChallenger: (state, action: PayloadAction<Challenge>) => {
       const challenge = state.challenges.find(challenge => challenge.id === action.payload.id)
       if (challenge) {
-        if (challenge) {
-          state.challenges = [
-            action.payload,
-            ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
-          ]
-          challengeProvider.saveChallenges(state.challenges)
-        }
+        state.challenges = [
+          action.payload,
+          ...state.challenges.filter(challenge => challenge.id !== action.payload.id)
+        ]
       }
     }
   }
 });
 
-export const { addChallenge, removeChallenge, challengeChampion, declareWinner, editChallenger } = challengeSlice.actions;
+export const { addChallenge, setChallenges, removeChallenge, challengeChampion, declareWinner, editChallenger } = challengeSlice.actions;
 
 export const selectChallenge = (state: RootState) => state.challenge.challenges;
 
