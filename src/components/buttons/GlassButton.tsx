@@ -6,6 +6,7 @@ interface ButtonProps {
     className?: string;
     handleClick?: MouseEventHandler;
     disabled?: boolean;
+    dataCy?: string;
 }
 
 function GlassButton({
@@ -14,6 +15,7 @@ function GlassButton({
     className,
     handleClick,
     disabled,
+    dataCy,
 }: ButtonProps) {
     return (
         <button
@@ -21,6 +23,7 @@ function GlassButton({
             className={`btn btn-ghost glass ring-1 ring-primary border-primary shadow-lg hover:shadow-xl hover:ring-2 transition-all text-primary ${className}`}
             onClick={handleClick}
             disabled={disabled || false}
+            data-cy={dataCy}
         >
             {children}
         </button>

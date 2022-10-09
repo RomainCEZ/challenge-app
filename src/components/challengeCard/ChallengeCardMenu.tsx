@@ -20,7 +20,10 @@ function ChallengeCardMenu({ id, challenge, toggleEdit }: MenuProps) {
     }
 
     return (
-        <div className="dropdown dropdown-end items-center">
+        <div
+            className="dropdown dropdown-end items-center"
+            data-cy={`card-menu-${challenge}`}
+        >
             <label
                 tabIndex={0}
                 className="btn btn-sm btn-ghost text-primary text-xl"
@@ -32,12 +35,18 @@ function ChallengeCardMenu({ id, challenge, toggleEdit }: MenuProps) {
                 tabIndex={0}
                 className="dropdown-content justify-center items-center shadow-lg bg-base-100 rounded-lg"
             >
-                <li className="flex btn btn-sm btn-outline rounded-b-none border-none btn-primary w-full">
+                <li
+                    className="flex btn btn-sm btn-outline rounded-b-none border-none btn-primary w-full"
+                    data-cy={`${challenge}-edit-button`}
+                >
                     <button className="capitalize w-full" onClick={toggleEdit}>
                         Edit
                     </button>
                 </li>
-                <li className="flex btn modal-button btn-sm btn-outline rounded-t-none border-none btn-primary w-full">
+                <li
+                    className="flex btn modal-button btn-sm btn-outline rounded-t-none border-none btn-primary w-full"
+                    data-cy={`${challenge}-delete-button`}
+                >
                     <label
                         htmlFor={`${id}confirmModal`}
                         className="cursor-pointer capitalize w-full"
@@ -51,6 +60,7 @@ function ChallengeCardMenu({ id, challenge, toggleEdit }: MenuProps) {
                 headingText={`Do you really want to delete the ${challenge} challenge ?`}
                 buttonText="Delete"
                 handleClick={deleteChallenge}
+                dataCy={`${challenge}-confirm-delete`}
             />
         </div>
     );

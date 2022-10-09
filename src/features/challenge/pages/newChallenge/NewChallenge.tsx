@@ -18,7 +18,11 @@ function NewChallenge() {
             <h2 className="font-bold text-2xl text-primary">
                 Claim your superiority !
             </h2>
-            <form className="form-control w-full" onSubmit={newChallenge}>
+            <form
+                className="form-control w-full"
+                onSubmit={newChallenge}
+                data-cy="new-challenge-form"
+            >
                 <InputBorderedPrimary
                     value={form.champion}
                     name={"champion"}
@@ -38,6 +42,7 @@ function NewChallenge() {
                 <GlassButton
                     className={`mt-3 ${pending ? "loading" : ""}`}
                     disabled={invalidInputLength || pending}
+                    dataCy="new-challenge-form-button"
                 >
                     I'm the best !
                 </GlassButton>

@@ -6,6 +6,7 @@ interface ConfirmModalProps {
     handleClick?: MouseEventHandler<HTMLButtonElement>;
     headingText?: string;
     buttonText?: string;
+    dataCy?: string;
 }
 
 function ConfirmModal(props: ConfirmModalProps) {
@@ -23,6 +24,7 @@ function ConfirmModal(props: ConfirmModalProps) {
                     <GlassButton
                         className="btn-sm w-full sm:w-2/3"
                         handleClick={props.handleClick}
+                        dataCy={props.dataCy}
                     >
                         {props.buttonText}
                     </GlassButton>

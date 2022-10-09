@@ -27,6 +27,7 @@ function InputBorderedPrimary(props: InputProps) {
                 maxLength={20}
                 required
                 disabled={props.disabled}
+                data-cy={`${props.name}-input`}
             />
             <p className="px-2 font-bold text-error text-center h-6">
                 {props.error}

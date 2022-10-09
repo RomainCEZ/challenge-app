@@ -22,6 +22,7 @@ function NavButton({ children, route, className }: ButtonProps) {
                 routeIsActive ? " btn-active" : ""
             } ${className}`}
             onClick={changeRoute}
+            data-cy={`nav-button-${children}`}
         >
             {children}
         </button>
